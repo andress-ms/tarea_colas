@@ -9,10 +9,12 @@ class ColaCircular:
         self.tamaño = tamaño
         self.cola = [None] * tamaño
         self.frente = self.final = -1
+        self.elementos_adicionales = []
         
     def encolar(self, elemento):
         if (self.final + 1) % self.tamaño == self.frente:
             print("La cola está llena")
+            self.elementos_adicionales.append(elemento)
         elif self.frente == -1:
             self.frente = self.final = 0
             self.cola[self.final] = elemento
@@ -22,7 +24,7 @@ class ColaCircular:
             
     def desencolar(self):
         if self.frente == -1:
-            print("La cola está vacía")
+            print("La cola esta vacia")
         else:
             print("Elemento desencolado:", self.cola[self.frente])
             if self.frente == self.final:
@@ -30,15 +32,19 @@ class ColaCircular:
             else:
                 self.frente = (self.frente + 1) % self.tamaño
             
+            if self.elementos_adicionales:
+                elemento = self.elementos_adicionales.pop(0)
+                self.encolar(elemento)
+            
     def ver_frente(self):
         if self.frente == -1:
-            print("La cola está vacía")
+            print("La cola esta vacia")
         else:
             print("El elemento al frente de la cola es:", self.cola[self.frente])
             
     def mostrar(self):
         if self.frente == -1:
-            print("La cola está vacía")
+            print("La cola está vacia")
         else:
             print("Elementos de la cola circular:")
             if self.final >= self.frente:
@@ -51,6 +57,7 @@ class ColaCircular:
                 for i in range(0, self.final + 1):
                     print(self.cola[i], end=" ")
                 print()
+
 
 def obtener_lista_elementos(tamaño_cola):
     elementos = []
@@ -89,4 +96,4 @@ if __name__ == "__main__":
             print("Saliendo del programa...")
             break
         else:
-            print("Opción inválida.")
+            print("Opcion inválida.")
